@@ -1,8 +1,8 @@
 // config inicial
 const express = require('express');
 const app = express();
+const cors = require("cors");
 const mongoose = require('mongoose');
-const aluno = require('./models/Aluno');
 const Aluno = require('./models/Aluno')
 
 // forma de ler json
@@ -13,6 +13,12 @@ app.use(
 )
 
 app.use(express.json())
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+app.use(cors(corsOptions)) 
 
 // rota inicial / end point
 app.get('/', (req,res) => {
@@ -78,8 +84,6 @@ app.put('/aluno/:id', async (req,res) => {
     res.status(200).json({message: "aluno alterado"})
     
 })
-
-
 
 
 mongoose
